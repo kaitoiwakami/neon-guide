@@ -33,6 +33,7 @@
 
   #ng-root {
     background: #0a0e1a;
+    position: relative; z-index: 1;
     color: #e0e6f0;
     font-family: 'Segoe UI', system-ui, sans-serif;
     max-width: 960px;
@@ -51,7 +52,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-shrink: 0
   }
 
   .ng-logo {
@@ -303,8 +303,6 @@
     border-top: 1px solid rgba(0, 229, 255, 0.08);
     display: flex;
     justify-content: space-around;
-    background: #0a0e1a;
-    flex-shrink: 0
   }
 
   .ng-nav-item {
@@ -742,6 +740,149 @@
   .ng-admin-del:hover { background: rgba(255,45,124,0.1); }
 
 
+
+  /* ============ STICKY HEADER/FOOTER ============ */
+  .ng-head {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,14,26,0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .ng-nav {
+    position: sticky; bottom: 0; z-index: 100;
+    background: rgba(10,14,26,0.95);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* ============ HAMBURGER MENU ============ */
+  .ng-hamburger {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 5px; cursor: pointer; background: transparent;
+    border: 0.5px solid rgba(0,229,255,0.15);
+    transition: background 0.15s;
+  }
+  .ng-hamburger:hover { background: rgba(0,229,255,0.06); }
+  .ng-hamburger span {
+    display: block; width: 18px; height: 1.5px;
+    background: #e0e6f0; border-radius: 1px; transition: all 0.2s;
+  }
+  .ng-menu-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .ng-menu-overlay.open { opacity: 1; pointer-events: auto; }
+  .ng-menu-panel {
+    position: fixed; top: 0; right: -280px; bottom: 0; width: 280px;
+    background: #131829; z-index: 201; padding: 60px 20px 20px;
+    transition: right 0.25s ease; overflow-y: auto;
+    border-left: 1px solid rgba(0,229,255,0.1);
+    box-shadow: -8px 0 40px rgba(0,0,0,0.4);
+  }
+  .ng-menu-panel.open { right: 0; }
+  .ng-menu-close {
+    position: absolute; top: 16px; right: 16px;
+    font-size: 20px; color: #8892a8; cursor: pointer;
+    width: 32px; height: 32px; display: flex;
+    align-items: center; justify-content: center;
+    border-radius: 6px;
+  }
+  .ng-menu-close:hover { background: rgba(0,229,255,0.06); color: #fff; }
+  .ng-menu-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 12px; border-radius: 8px;
+    font-size: 14px; color: #e0e6f0; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .ng-menu-item:hover { background: rgba(0,229,255,0.06); }
+  .ng-menu-item .mi-icon { font-size: 18px; width: 24px; text-align: center; }
+  .ng-menu-divider {
+    height: 1px; background: rgba(0,229,255,0.08);
+    margin: 8px 12px;
+  }
+  .ng-menu-label {
+    font-size: 10px; color: #505a70; letter-spacing: 1px;
+    font-weight: 600; padding: 12px 12px 4px;
+    text-transform: uppercase;
+  }
+
+  /* ============ SEARCH SECTION ============ */
+  .ng-search-section {
+    padding: 16px 20px 8px;
+  }
+  .ng-search-bar {
+    display: flex; align-items: center; gap: 8px;
+    background: #131829; border: 0.5px solid rgba(0,229,255,0.12);
+    border-radius: 10px; padding: 10px 14px;
+    transition: border-color 0.2s;
+  }
+  .ng-search-bar:focus-within { border-color: rgba(0,229,255,0.35); }
+  .ng-search-bar input {
+    flex: 1; background: transparent; border: none; outline: none;
+    color: #e0e6f0; font-size: 14px; font-family: inherit;
+  }
+  .ng-search-bar input::placeholder { color: #505a70; }
+  .ng-search-icon { font-size: 16px; color: #505a70; flex-shrink: 0; }
+  .ng-search-filters {
+    display: flex; gap: 6px; margin-top: 10px; overflow-x: auto;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .ng-search-filters::-webkit-scrollbar { display: none; }
+  .ng-search-chip {
+    flex-shrink: 0; padding: 5px 12px; border-radius: 20px;
+    font-size: 11px; color: #8892a8; cursor: pointer;
+    background: rgba(0,229,255,0.04);
+    border: 0.5px solid rgba(0,229,255,0.1);
+    transition: all 0.15s;
+  }
+  .ng-search-chip:hover, .ng-search-chip.active {
+    color: #00e5ff; border-color: rgba(0,229,255,0.4);
+    background: rgba(0,229,255,0.08);
+  }
+
+  /* ============ DISTRICT MAP ============ */
+  .ng-district-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 10px; padding: 12px 20px;
+  }
+  .ng-district-card {
+    border-radius: 10px; padding: 0;
+    border: 0.5px solid rgba(0,229,255,0.1);
+    cursor: pointer; transition: all 0.2s; position: relative;
+    overflow: hidden; aspect-ratio: 16/9;
+    background-size: cover; background-position: center;
+    display: flex; align-items: flex-end;
+  }
+  .ng-district-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(10,14,26,0.85) 0%, rgba(10,14,26,0.3) 50%, rgba(10,14,26,0.15) 100%);
+    transition: background 0.2s;
+  }
+  .ng-district-card:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-2px); }
+  .ng-district-card:hover::after {
+    background: linear-gradient(0deg, rgba(10,14,26,0.9) 0%, rgba(10,14,26,0.2) 50%, rgba(10,14,26,0.05) 100%);
+  }
+  .ng-district-info {
+    position: relative; z-index: 1; padding: 14px 16px; width: 100%;
+  }
+  .ng-district-name { font-size: 17px; font-weight: 700; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+  .ng-district-count { font-size: 12px; color: #00e5ff; margin-top: 2px; font-weight: 500; }
+  .ng-district-spots {
+    padding: 8px 20px 20px;
+  }
+  .ng-district-back {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: #8892a8; cursor: pointer;
+    padding: 6px 0; margin-bottom: 8px;
+  }
+  .ng-district-back:hover { color: #00e5ff; }
+  @media (max-width: 600px) {
+    .ng-search-section { padding: 12px 14px 6px; }
+    .ng-district-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 10px 14px; }
+  }
+  @media (max-width: 400px) {
+    .ng-district-name { font-size: 15px; }
+  }
+
   /* ============ FEED GRID (PC 2-column) ============ */
   .ng-feed-grid {
     display: grid;
@@ -995,7 +1136,26 @@
 
 </style>
 
-<div id="ng-root" style="position:relative;">
+<div class="ng-menu-overlay" id="ng-menu-overlay" data-action="close-menu"></div>
+<div class="ng-menu-panel" id="ng-menu-panel">
+  <div class="ng-menu-close" data-action="close-menu">✕</div>
+  <div class="ng-menu-label">Account</div>
+  <div class="ng-menu-item" data-action="menu-action" data-val="login"><span class="mi-icon">👤</span>Log In</div>
+  <div class="ng-menu-item" data-action="menu-action" data-val="signup"><span class="mi-icon">✨</span>Sign Up Free</div>
+  <div class="ng-menu-divider"></div>
+  <div class="ng-menu-label">Navigation</div>
+  <div class="ng-menu-item" data-action="menu-action" data-val="bookmarks"><span class="mi-icon">🔖</span>Bookmarks</div>
+  <div class="ng-menu-item" data-action="menu-action" data-val="myreviews"><span class="mi-icon">📝</span>My Reviews</div>
+  <div class="ng-menu-item" data-action="menu-action" data-val="history"><span class="mi-icon">🕐</span>History</div>
+  <div class="ng-menu-divider"></div>
+  <div class="ng-menu-label">Settings</div>
+  <div class="ng-menu-item" data-action="menu-action" data-val="language"><span class="mi-icon">🌐</span>Language — English</div>
+  <div class="ng-menu-item" data-action="menu-action" data-val="notifications"><span class="mi-icon">🔔</span>Notifications</div>
+  <div class="ng-menu-item" data-action="menu-action" data-val="help"><span class="mi-icon">❓</span>Help & Support</div>
+  <div class="ng-menu-divider"></div>
+  <div style="padding:12px;text-align:center;font-size:10px;color:#505a70;margin-top:12px;">NEON GUIDE v1.0 · Tokyo Nightlife Intel</div>
+</div>
+<div id="ng-root">
   <div class="ng-head">
     <div>
       <div class="ng-logo">NEON GUIDE</div>
@@ -1003,6 +1163,7 @@
     </div>
     <div id="ng-head-action"></div>
   </div>
+
   <div class="ng-hero" id="ng-hero">
     <div class="ng-hero-img"></div>
     <div class="ng-hero-overlay">
@@ -1029,6 +1190,7 @@
       commentForm: {},
       threadForm: { title: '', body: '', category: 'lfg' },
       currentShopId: null,
+      mapDistrict: null,
       shopTab: 'about'
     };
 
@@ -1221,7 +1383,24 @@
     function renderFeed() {
       const catFilter = { hot: t => true, new: t => true, top: t => true };
       return `
-      <div class="ng-screen" style="padding-top:8px;">
+      <div class="ng-screen" style="padding-top:0;">
+        <!-- SEARCH SECTION -->
+        <div class="ng-search-section">
+          <div class="ng-search-bar">
+            <span class="ng-search-icon">🔍</span>
+            <input type="text" placeholder="Search bars, clubs, karaoke, ramen..." />
+          </div>
+          <div class="ng-search-filters">
+            <span class="ng-search-chip active">All</span>
+            <span class="ng-search-chip">Bars</span>
+            <span class="ng-search-chip">Clubs</span>
+            <span class="ng-search-chip">Karaoke</span>
+            <span class="ng-search-chip">Late-night eats</span>
+            <span class="ng-search-chip">Tours</span>
+            <span class="ng-search-chip">Open now</span>
+          </div>
+        </div>
+
         <div class="ng-tabs">
           <div class="ng-tab ${state.feedTab === 'hot' ? 'active' : ''}" data-action="feed-tab" data-val="hot">🔥 Hot</div>
           <div class="ng-tab ${state.feedTab === 'new' ? 'active' : ''}" data-action="feed-tab" data-val="new">New</div>
@@ -1807,15 +1986,12 @@
       return `
       <div class="ng-screen">
         <!-- Shop Header -->
-        <div style="position:relative;">
-          <div class="ng-promo-banner" style="height:120px;">
-            <div class="ng-promo-banner-glow" style="background:#ff2d7c;top:-30px;left:15%;"></div>
-            <div class="ng-promo-banner-glow" style="background:#b47aff;top:-30px;right:25%;"></div>
-            <div class="ng-promo-banner-glow" style="background:#00e5ff;bottom:-30px;right:15%;"></div>
-            <div style="position:relative;z-index:1;text-align:center;">
-              <div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:2px;text-shadow:0 0 24px rgba(0,229,255,0.5);">${esc(shop.name)}</div>
-              <div style="font-size:12px;color:#b0b8cc;margin-top:6px;">${esc(shop.tagline)}</div>
-            </div>
+        <div class="ng-promo-hero" style="height:180px;">
+          ${shop.img ? '<img src="'+esc(shop.img)+'" alt="'+esc(shop.name)+'" />' : ''}
+          <div class="ng-promo-hero-overlay"></div>
+          <div class="ng-promo-hero-content">
+            <div class="ng-promo-hero-name" style="font-size:24px;letter-spacing:2px;">${esc(shop.name)}</div>
+            <div class="ng-promo-hero-tagline">${esc(shop.tagline)}</div>
           </div>
         </div>
 
@@ -1976,9 +2152,84 @@
       </div>`;
     }
 
+
+    // ============ MAP / DISTRICT SELECTOR ============
+    function renderMap() {
+      const districts = [
+        { id: 'shinjuku', name: 'Shinjuku', desc: 'Golden Gai, Kabukichō, neon chaos' },
+        { id: 'shibuya', name: 'Shibuya', desc: 'Clubs, rooftops, youth culture' },
+        { id: 'roppongi', name: 'Roppongi', desc: 'International bars, late-night lounges' },
+        { id: 'ikebukuro', name: 'Ikebukuro', desc: 'Anime culture, izakaya alleys' },
+        { id: 'akihabara', name: 'Akihabara', desc: 'Themed bars, maid cafes, otaku nightlife' },
+        { id: 'ginza', name: 'Ginza', desc: 'Upscale cocktail bars, jazz clubs' },
+        { id: 'asakusa', name: 'Asakusa', desc: 'Traditional izakayas, Hoppy Street' },
+        { id: 'shimokitazawa', name: 'Shimokitazawa', desc: 'Live houses, craft beer, indie scene' },
+      ];
+      const sel = state.mapDistrict || null;
+      
+      if (sel) {
+        const dist = districts.find(d => d.id === sel);
+        const distSpots = [...spots, ...shops].filter(s => s.district && s.district.toLowerCase().includes(sel));
+        return `
+        <div class="ng-screen">
+          <div class="ng-district-spots">
+            <div class="ng-district-back" data-action="map-back">← All Districts</div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+              <span style="font-size:24px;">📍</span>
+              <div>
+                <div style="font-size:18px;font-weight:700;">${dist ? dist.name : sel}</div>
+                <div style="font-size:11px;color:#8892a8;">${dist ? dist.desc : ''}</div>
+              </div>
+            </div>
+            <div style="font-size:11px;color:#505a70;margin-bottom:10px;">${distSpots.length} spot${distSpots.length!==1?'s':''} found</div>
+            ${distSpots.map(s => `
+              <div class="ng-spot-card" data-action="${s.official ? 'open-shop' : 'open-spot'}" data-id="${s.id}" style="padding:0;overflow:hidden;">
+                ${s.official ? '' : spotBanner(s)}
+                ${s.official && s.img ? '<div style="height:100px;overflow:hidden;border-radius:10px 10px 0 0;"><img src="'+esc(s.img)+'" style="width:100%;height:100%;object-fit:cover;" /></div>' : ''}
+                <div style="padding:12px 14px;">
+                  <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;">
+                    ${s.official ? '<span class="ng-official-badge">✦ Official</span>' : ''}
+                    <span class="ng-badge ng-tag-purple">${esc(s.type)}</span>
+                  </div>
+                  <div style="font-size:14px;font-weight:600;">${esc(s.name)}</div>
+                  <div style="font-size:11px;color:#8892a8;margin-top:2px;">${esc(s.price)} · ${esc(s.hours)}</div>
+                  <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
+                    <span style="font-size:14px;font-weight:700;color:#00e5ff;">${s.rating}</span>
+                    <span class="ng-stars" style="font-size:10px;">${stars(Math.round(s.rating))}</span>
+                    <span style="font-size:10px;color:#505a70;">(${s.reviewCount})</span>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+            ${distSpots.length === 0 ? '<div style="text-align:center;padding:40px 0;color:#505a70;font-size:13px;">No spots yet in this district</div>' : ''}
+          </div>
+        </div>`;
+      }
+      
+      return `
+      <div class="ng-screen">
+        <div style="padding:16px 20px 8px;">
+          <div style="font-size:13px;color:#8892a8;margin-bottom:4px;">Explore by area</div>
+          <div style="font-size:18px;font-weight:700;">Tokyo Area</div>
+        </div>
+        <div class="ng-district-grid">
+          ${districts.map(d => {
+            const cnt = [...spots, ...shops].filter(s => s.district && s.district.toLowerCase().includes(d.id)).length;
+            return `
+            <div class="ng-district-card" data-action="select-district" data-val="${d.id}" style="background-image:url('img/hero.jpg');background-position:center ${Math.random()*60+20}%;">
+              <div class="ng-district-info">
+                <div class="ng-district-name">${d.name}</div>
+                <div class="ng-district-count">${cnt} spot${cnt!==1?'s':''}</div>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+    }
+
     function renderNav() {
       const items = [
-        ['feed', '🏠', 'Feed'], ['reviews', '⭐', 'Reviews'], ['board', '💬', 'Board'], ['map', '🗺', 'Map'], ['admin', '⚙', 'Admin']
+        ['feed', '🏠', 'Feed'], ['board', '💬', 'Board'], ['area', '📍', 'Area'], ['admin', '⚙', 'Admin']
       ];
       const activeScreen = ['feed', 'spot', 'reviewForm', 'shopDetail'].includes(state.screen) ? 'feed'
         : state.screen === 'admin' ? 'admin'
@@ -1995,9 +2246,8 @@
         board: 'TOKYO <span class="ng-cyan">//</span> BOARD',
         thread: 'BOARD <span class="ng-cyan">//</span> THREAD',
         newThread: 'NEW <span class="ng-cyan">//</span> POST',
-        map: 'TOKYO <span class="ng-cyan">//</span> MAP',
+        area: 'TOKYO <span class="ng-cyan">//</span> AREA',
         profile: 'YOU <span class="ng-cyan">//</span> PROFILE',
-        reviews: 'ALL <span class="ng-cyan">//</span> REVIEWS',
         shopDetail: 'SHOP <span class="ng-cyan">//</span> OFFICIAL',
         admin: 'テスト <span class="ng-cyan">//</span> 管理'
       };
@@ -2006,8 +2256,8 @@
       let action = '';
       if (['spot', 'reviewForm', 'thread', 'newThread', 'shopDetail', 'admin'].includes(state.screen)) {
         action = `<button class="ng-back" data-action="back">← Back</button>`;
-      } else if (state.screen === 'feed') {
-        action = `<input type="text" class="ng-input" placeholder="Search..." style="width:140px;padding:6px 10px;font-size:12px;" />`;
+      } else if (state.screen === 'feed' || state.screen === 'area') {
+        action = `<div class="ng-hamburger" data-action="open-menu"><span></span><span></span><span></span></div>`;
       } else if (state.screen === 'board') {
         action = `<button class="ng-pill" data-action="open-new-thread">+ New post</button>`;
       }
@@ -2039,8 +2289,7 @@
         case 'thread': html = renderThreadDetail(); break;
         case 'newThread': html = renderNewThread(); break;
         case 'shopDetail': html = renderShopDetail(); break;
-        case 'reviews': html = renderPlaceholder({ icon: '⭐', title: 'All Reviews', sub: 'Coming soon — browse reviews across all spots' }); break;
-        case 'map': html = renderPlaceholder({ icon: '🗺', title: 'Map View', sub: 'Coming soon — see all spots plotted on Tokyo map' }); break;
+        case 'area': html = renderMap(); break;
         case 'admin': html = renderAdmin(); break;
       }
       $('ng-body').innerHTML = html;
@@ -2063,8 +2312,20 @@
           else if (val === 'board') navigate('board');
           else navigate(val);
           break;
+        case 'open-menu':
+          openMenu();
+          break;
+        case 'select-district':
+          state.mapDistrict = el.dataset.val;
+          render();
+          break;
+        case 'map-back':
+          state.mapDistrict = null;
+          render();
+          break;
         case 'back':
           if (state.screen === 'spot' || state.screen === 'reviewForm' || state.screen === 'shopDetail' || state.screen === 'admin') navigate('feed');
+          else if (state.screen === 'area' && state.mapDistrict) { state.mapDistrict = null; render(); }
           else if (state.screen === 'thread' || state.screen === 'newThread') navigate('board');
           break;
         case 'feed-tab': state.feedTab = val; render(); break;
