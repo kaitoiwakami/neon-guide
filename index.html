@@ -35,7 +35,7 @@
     background: #0a0e1a;
     color: #e0e6f0;
     font-family: 'Segoe UI', system-ui, sans-serif;
-    max-width: 100%;
+    max-width: 960px;
     margin: 0 auto;
     overflow: hidden;
     border: 0.5px solid rgba(0, 255, 255, 0.15);
@@ -741,6 +741,118 @@
   }
   .ng-admin-del:hover { background: rgba(255,45,124,0.1); }
 
+
+  /* ============ FEED GRID (PC 2-column) ============ */
+  .ng-feed-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    padding: 0;
+  }
+  .ng-feed-grid > .ng-spot-card { margin: 6px 10px; }
+  .ng-feed-grid > .ng-feed-full { grid-column: 1 / -1; }
+  @media (max-width: 768px) {
+    .ng-feed-grid { grid-template-columns: 1fr; }
+    .ng-feed-grid > .ng-spot-card { margin: 0 20px 10px; }
+  }
+  @media (max-width: 600px) {
+    .ng-feed-grid > .ng-spot-card { margin: 0 14px 10px; }
+  }
+
+  /* ============ ENHANCED PROMO CARD ============ */
+  .ng-promo-card-v2 {
+    background: #131829;
+    border-radius: 12px;
+    border: 1.5px solid rgba(255,45,124,0.3);
+    margin: 8px 20px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(255,45,124,0.08), 0 0 40px rgba(0,229,255,0.04);
+  }
+  .ng-promo-card-v2:hover { border-color: rgba(255,45,124,0.6); transform: translateY(-2px); }
+  .ng-promo-card-v2::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #ff2d7c, #b47aff, #00e5ff, #b47aff, #ff2d7c);
+    background-size: 200% 100%;
+    animation: promoShimmer 3s ease infinite;
+    z-index: 2;
+  }
+  @keyframes promoShimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  .ng-promo-hero {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ng-promo-hero img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .ng-promo-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(19,24,41,0.95) 0%, rgba(19,24,41,0.4) 40%, transparent 70%);
+  }
+  .ng-promo-hero-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 16px 18px;
+    z-index: 1;
+  }
+  .ng-promo-hero-name {
+    font-size: 22px; font-weight: 800; color: #fff;
+    letter-spacing: 1px; text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    margin-bottom: 4px;
+  }
+  .ng-promo-hero-tagline {
+    font-size: 12px; color: #c8cfe0;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+  .ng-promo-staff-row {
+    display: flex; gap: 6px; align-items: center; margin-top: 10px;
+  }
+  .ng-promo-staff-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    overflow: hidden; border: 2px solid rgba(0,229,255,0.3);
+    flex-shrink: 0;
+    background: #1a2038;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .ng-promo-staff-avatar.is-new { border-color: #ff2d7c; }
+  .ng-promo-staff-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .ng-promo-coupon-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: linear-gradient(135deg, rgba(255,45,124,0.2), rgba(180,122,255,0.2));
+    color: #ff2d7c; padding: 4px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600;
+    border: 1px solid rgba(255,45,124,0.3);
+    animation: couponPulse 2s ease infinite;
+  }
+  @keyframes couponPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,45,124,0.2); }
+    50% { box-shadow: 0 0 8px 2px rgba(255,45,124,0.15); }
+  }
+  .ng-promo-event-mini {
+    background: rgba(180,122,255,0.08);
+    border-left: 2px solid #b47aff;
+    padding: 6px 10px; border-radius: 0 6px 6px 0;
+    margin-top: 8px;
+  }
+  @media (max-width: 768px) {
+    .ng-promo-card-v2 { margin: 8px 20px 12px; }
+    .ng-promo-hero { height: 170px; }
+    .ng-promo-hero-name { font-size: 19px; }
+  }
+  @media (max-width: 600px) {
+    .ng-promo-card-v2 { margin: 6px 14px 10px; }
+    .ng-promo-hero { height: 150px; }
+    .ng-promo-hero-name { font-size: 17px; }
+    .ng-promo-staff-avatar { width: 30px; height: 30px; }
+  }
+
   /* ============ PROMOTED / SHOP ============ */
   .ng-promo-card {
     background: #131829;
@@ -1014,7 +1126,7 @@
     // ============ PROMOTED SHOPS (広告掲載店舗) ============
     const shops = [
       {
-        id: 101, name: 'BAR NEON DYNASTY', type: 'Cocktail Bar', district: 'Roppongi',
+        id: 101, name: 'BAR NEON DYNASTY', type: 'Cocktail Bar', district: 'Roppongi', img: 'img/shop-2.jpg',
         official: true, verified: true,
         tagline: 'Where Tokyo\'s night begins — craft cocktails & global beats',
         price: '¥1,500–4,000', hours: '20:00–05:00', address: '3-14-7 Roppongi, Minato-ku',
@@ -1047,7 +1159,7 @@
         ]
       },
       {
-        id: 102, name: 'CLUB SPECTRUM', type: 'Nightclub', district: 'Shibuya',
+        id: 102, name: 'CLUB SPECTRUM', type: 'Nightclub', district: 'Shibuya', img: 'img/shop-3.jpg',
         official: true, verified: true,
         tagline: 'Tokyo\'s premier underground music venue',
         price: '¥3,000 w/ 1 drink', hours: '23:00–06:00', address: '2-21-5 Dogenzaka, Shibuya-ku',
@@ -1123,38 +1235,39 @@
         <!-- PR: Promoted Shop Banner -->
         ${shops.length > 0 ? renderPromoCard(shops[0]) : ''}
 
-        <div style="padding:12px 20px 0;">
-          <div style="font-size:11px;color:#ff2d7c;letter-spacing:1px;font-weight:600;margin-bottom:6px;">⚡ FEATURED SPOTS</div>
-        </div>
-        ${spots.map((s, idx) => {
-          let out = `
-          <div class="ng-spot-card" data-action="open-spot" data-id="${s.id}" style="padding:0;overflow:hidden;">
-            ${spotBanner(s)}
-            <div style="padding:12px 14px;">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
-                <div style="flex:1;min-width:0;">
-                  <div style="display:flex;gap:4px;margin-bottom:4px;flex-wrap:wrap;">
-                    <span class="ng-badge ng-tag-purple">${s.type}</span>
-                    <span class="ng-badge ng-tag-cyan">${s.district}</span>
+        <div class="ng-feed-grid">
+          <div class="ng-feed-full" style="padding:12px 20px 0;">
+            <div style="font-size:11px;color:#ff2d7c;letter-spacing:1px;font-weight:600;margin-bottom:6px;">⚡ FEATURED SPOTS</div>
+          </div>
+          ${spots.map((s, idx) => {
+            let out = `
+            <div class="ng-spot-card" data-action="open-spot" data-id="${s.id}" style="padding:0;overflow:hidden;">
+              ${spotBanner(s)}
+              <div style="padding:12px 14px;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+                  <div style="flex:1;min-width:0;">
+                    <div style="display:flex;gap:4px;margin-bottom:4px;flex-wrap:wrap;">
+                      <span class="ng-badge ng-tag-purple">${s.type}</span>
+                      <span class="ng-badge ng-tag-cyan">${s.district}</span>
+                    </div>
+                    <div style="font-size:15px;font-weight:600;margin-bottom:2px;">${esc(s.name)}</div>
+                    <div style="font-size:11px;color:#8892a8;">${esc(s.price)} · ${esc(s.hours)}</div>
                   </div>
-                  <div style="font-size:15px;font-weight:600;margin-bottom:2px;">${esc(s.name)}</div>
-                  <div style="font-size:11px;color:#8892a8;">${esc(s.price)} · ${esc(s.hours)}</div>
+                  <div style="text-align:center;flex-shrink:0;">
+                    <div style="font-size:20px;font-weight:700;color:#00e5ff;line-height:1;">${s.rating}</div>
+                    <span class="ng-stars" style="font-size:10px;">${stars(Math.round(s.rating))}</span>
+                    <div style="font-size:10px;color:#505a70;">${s.reviewCount} reviews</div>
+                  </div>
                 </div>
-                <div style="text-align:center;flex-shrink:0;">
-                  <div style="font-size:20px;font-weight:700;color:#00e5ff;line-height:1;">${s.rating}</div>
-                  <span class="ng-stars" style="font-size:10px;">${stars(Math.round(s.rating))}</span>
-                  <div style="font-size:10px;color:#505a70;">${s.reviewCount} reviews</div>
+                <div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap;">
+                  ${s.tags.slice(0, 3).map(t => `<span class="ng-tag ng-tag-cyan" style="cursor:default;">${esc(t)}</span>`).join('')}
                 </div>
               </div>
-              <div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap;">
-                ${s.tags.slice(0, 3).map(t => `<span class="ng-tag ng-tag-cyan" style="cursor:default;">${esc(t)}</span>`).join('')}
-              </div>
-            </div>
-          </div>`;
-          // Insert second promo after 2nd spot card
-          if (idx === 1 && shops.length > 1) out += renderPromoCard(shops[1]);
-          return out;
-        }).join('')}
+            </div>`;
+            if (idx === 1 && shops.length > 1) out += renderPromoCard(shops[1]);
+            return out;
+          }).join('')}
+        </div>
         <div style="padding:20px;"></div>
       </div>`;
     }
@@ -1491,45 +1604,47 @@
 
     // ============ PROMOTED CARD (PR) ============
     function renderPromoCard(shop) {
+      const featEvent = shop.events.find(e => e.highlight);
       return `
-      <div class="ng-promo-card" data-action="open-shop" data-id="${shop.id}">
-        <div class="ng-promo-banner">
-          <div class="ng-promo-banner-glow" style="background:#ff2d7c;top:-30px;left:20%;"></div>
-          <div class="ng-promo-banner-glow" style="background:#00e5ff;bottom:-30px;right:20%;"></div>
-          <div style="position:relative;z-index:1;text-align:center;">
-            <div style="font-size:18px;font-weight:700;color:#fff;letter-spacing:1px;text-shadow:0 0 20px rgba(0,229,255,0.4);">${esc(shop.name)}</div>
-            <div style="font-size:11px;color:#b0b8cc;margin-top:4px;">${esc(shop.tagline)}</div>
+      <div class="ng-promo-card-v2 ng-feed-full" data-action="open-shop" data-id="${shop.id}">
+        <div class="ng-promo-hero">
+          ${shop.img ? '<img src="'+esc(shop.img)+'" alt="'+esc(shop.name)+'" />' : ''}
+          <div class="ng-promo-hero-overlay"></div>
+          <div class="ng-pr-label" style="z-index:2;">PR</div>
+          <div class="ng-promo-hero-content">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+              <span class="ng-official-badge">✦ Official</span>
+              <span class="ng-badge ng-tag-purple">${esc(shop.type)}</span>
+              <span class="ng-badge ng-tag-cyan">${esc(shop.district)}</span>
+            </div>
+            <div class="ng-promo-hero-name">${esc(shop.name)}</div>
+            <div class="ng-promo-hero-tagline">${esc(shop.tagline)}</div>
           </div>
-          <div class="ng-pr-label">PR</div>
         </div>
-        <div style="padding:12px 16px;">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
-            <span class="ng-official-badge">✦ Official</span>
-            <span class="ng-badge ng-tag-purple">${esc(shop.type)}</span>
-            <span class="ng-badge ng-tag-cyan">${esc(shop.district)}</span>
-            ${shop.coupons.length > 0 ? '<span class="ng-badge ng-tag-pink">🎫 Coupon available</span>' : ''}
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-size:12px;color:#8892a8;">${esc(shop.price)} · ${esc(shop.hours)}</div>
-              <div style="display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;">
-                ${shop.tags.slice(0, 3).map(t => '<span class="ng-tag ng-tag-cyan" style="font-size:10px;cursor:default;">' + esc(t) + '</span>').join('')}
+        <div style="padding:14px 18px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+            <div style="flex:1;">
+              <div style="font-size:12px;color:#8892a8;margin-bottom:6px;">${esc(shop.price)} · ${esc(shop.hours)}</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                ${shop.tags.slice(0, 4).map(t => '<span class="ng-tag ng-tag-cyan" style="font-size:10px;cursor:default;">' + esc(t) + '</span>').join('')}
               </div>
+              ${shop.coupons.length > 0 ? '<div style="margin-top:8px;"><span class="ng-promo-coupon-badge">🎫 ' + esc(shop.coupons[0].title) + '</span></div>' : ''}
             </div>
-            <div style="text-align:center;">
-              <div style="font-size:18px;font-weight:700;color:#00e5ff;">${shop.rating}</div>
-              <div class="ng-stars" style="font-size:10px;">${stars(Math.round(shop.rating))}</div>
-              <div style="font-size:10px;color:#505a70;">${shop.reviewCount} reviews</div>
+            <div style="text-align:center;background:rgba(0,229,255,0.06);padding:8px 14px;border-radius:10px;border:0.5px solid rgba(0,229,255,0.12);">
+              <div style="font-size:22px;font-weight:700;color:#00e5ff;line-height:1;">${shop.rating}</div>
+              <div class="ng-stars" style="font-size:11px;margin-top:2px;">${stars(Math.round(shop.rating))}</div>
+              <div style="font-size:10px;color:#505a70;margin-top:2px;">${shop.reviewCount} reviews</div>
             </div>
           </div>
+          ${featEvent ? '<div class="ng-promo-event-mini"><div style="font-size:10px;color:#b47aff;font-weight:600;">📅 UPCOMING</div><div style="font-size:12px;font-weight:600;color:#e0e6f0;margin-top:2px;">' + esc(featEvent.title) + '</div><div style="font-size:10px;color:#8892a8;">' + esc(featEvent.date) + ' · ' + esc(featEvent.time) + '</div></div>' : ''}
           ${shop.staff.length > 0 ? `
-          <div style="margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(0,229,255,0.06);display:flex;align-items:center;gap:8px;">
-            <span style="font-size:11px;color:#8892a8;">Staff:</span>
-            <div style="display:flex;gap:4px;">
-              ${shop.staff.slice(0, 5).map(s => `<div style="width:26px;height:26px;border-radius:50%;background:#1a2038;display:flex;align-items:center;justify-content:center;font-size:13px;overflow:hidden;border:${s.isNew?'1.5px solid #ff2d7c':'0.5px solid rgba(0,229,255,0.15)'};" title="${esc(s.name)}">${s.photo ? '<img src="'+s.photo+'" style="width:100%;height:100%;object-fit:cover;" />' : s.emoji}</div>`).join('')}
-              ${shop.staff.length > 5 ? '<span style="font-size:10px;color:#505a70;margin-left:2px;">+' + (shop.staff.length - 5) + '</span>' : ''}
+          <div style="margin-top:12px;padding-top:12px;border-top:0.5px solid rgba(0,229,255,0.08);">
+            <div style="font-size:10px;color:#8892a8;margin-bottom:6px;font-weight:600;letter-spacing:0.5px;">STAFF ON DUTY</div>
+            <div class="ng-promo-staff-row">
+              ${shop.staff.slice(0, 6).map(s => `<div class="ng-promo-staff-avatar ${s.isNew ? 'is-new' : ''}" title="${esc(s.name)} — ${esc(s.role)}">${s.photo ? '<img src="'+s.photo+'" />' : s.emoji}</div>`).join('')}
+              ${shop.staff.length > 6 ? '<span style="font-size:11px;color:#505a70;">+' + (shop.staff.length - 6) + '</span>' : ''}
+              ${shop.staff.some(s => s.isNew) ? '<span style="font-size:10px;color:#ff2d7c;font-weight:600;margin-left:4px;">✨ NEW</span>' : ''}
             </div>
-            ${shop.staff.some(s => s.isNew) ? '<span style="font-size:10px;color:#ff2d7c;font-weight:600;">NEW member!</span>' : ''}
           </div>` : ''}
         </div>
       </div>`;
@@ -1758,14 +1873,14 @@
     function renderAdmin() {
       return `
       <div class="ng-screen" style="padding:16px 20px;">
-        <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Test Data Manager</div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:16px;">テストデータ管理</div>
 
         <!-- ADD SPOT -->
         <div class="ng-admin-section">
-          <div class="ng-admin-section-title">+ Add Spot</div>
+          <div class="ng-admin-section-title">＋ スポット追加</div>
           <div class="ng-admin-row">
-            <div><label>Name</label><input class="ng-input" id="adm-spot-name" placeholder="Bar XYZ" /></div>
-            <div><label>Type</label>
+            <div><label>店名</label><input class="ng-input" id="adm-spot-name" placeholder="Bar XYZ" /></div>
+            <div><label>ジャンル</label>
               <select class="ng-select" id="adm-spot-type" style="width:100%;">
                 <option>Bar</option><option>Nightclub</option><option>Karaoke</option>
                 <option>Restaurant</option><option>Late-night eats</option><option>Night tour</option>
@@ -1773,60 +1888,60 @@
             </div>
           </div>
           <div class="ng-admin-row">
-            <div><label>District</label>
+            <div><label>エリア</label>
               <select class="ng-select" id="adm-spot-district" style="width:100%;">
                 <option>Shinjuku</option><option>Shibuya</option><option>Roppongi</option>
                 <option>Ikebukuro</option><option>Akihabara</option><option>Ginza</option><option>Ueno</option>
               </select>
             </div>
-            <div><label>Price</label><input class="ng-input" id="adm-spot-price" placeholder="¥2,000–5,000" /></div>
+            <div><label>価格帯</label><input class="ng-input" id="adm-spot-price" placeholder="¥2,000–5,000" /></div>
           </div>
           <div class="ng-admin-row">
-            <div><label>Hours</label><input class="ng-input" id="adm-spot-hours" placeholder="20:00–05:00" /></div>
-            <div><label>Icon emoji</label><input class="ng-input" id="adm-spot-icon" placeholder="🍸" value="🍸" /></div>
+            <div><label>営業時間</label><input class="ng-input" id="adm-spot-hours" placeholder="20:00–05:00" /></div>
+            <div><label>アイコン絵文字</label><input class="ng-input" id="adm-spot-icon" placeholder="🍸" value="🍸" /></div>
           </div>
           <div style="margin-bottom:8px;">
-            <label style="display:block;font-size:10px;color:#505a70;margin-bottom:3px;">Account Image URL (optional)</label>
+            <label style="display:block;font-size:10px;color:#505a70;margin-bottom:3px;">アカウント画像URL（任意）</label>
             <input class="ng-input" id="adm-spot-img" placeholder="https://example.com/photo.jpg" />
           </div>
           <div style="margin-bottom:8px;">
-            <label style="display:block;font-size:10px;color:#505a70;margin-bottom:3px;">Tags (comma-separated)</label>
-            <input class="ng-input" id="adm-spot-tags" placeholder="English menu, Late night, Credit cards OK" />
+            <label style="display:block;font-size:10px;color:#505a70;margin-bottom:3px;">タグ（カンマ区切り）</label>
+            <input class="ng-input" id="adm-spot-tags" placeholder="英語メニュー, 深夜営業, カード可" />
           </div>
-          <button class="ng-btn" data-action="adm-add-spot" style="width:100%;">Add Spot</button>
+          <button class="ng-btn" data-action="adm-add-spot" style="width:100%;">スポットを追加</button>
         </div>
 
         <!-- ADD STAFF to shop -->
         <div class="ng-admin-section">
-          <div class="ng-admin-section-title">+ Add Staff to Shop</div>
+          <div class="ng-admin-section-title">＋ ショップにスタッフ追加</div>
           <div class="ng-admin-row">
-            <div><label>Shop</label>
+            <div><label>ショップ</label>
               <select class="ng-select" id="adm-staff-shop" style="width:100%;">
                 ${shops.map(s => '<option value="'+s.id+'">'+esc(s.name)+'</option>').join('')}
               </select>
             </div>
           </div>
           <div class="ng-admin-row">
-            <div><label>Name</label><input class="ng-input" id="adm-staff-name" placeholder="Yuki" /></div>
-            <div><label>Role</label><input class="ng-input" id="adm-staff-role" placeholder="Bartender" /></div>
+            <div><label>名前</label><input class="ng-input" id="adm-staff-name" placeholder="Yuki" /></div>
+            <div><label>役職</label><input class="ng-input" id="adm-staff-role" placeholder="Bartender" /></div>
           </div>
           <div class="ng-admin-row">
-            <div><label>Emoji</label><input class="ng-input" id="adm-staff-emoji" placeholder="🍸" value="🍸" /></div>
-            <div><label>Schedule</label><input class="ng-input" id="adm-staff-sched" placeholder="Fri–Sun" /></div>
+            <div><label>絵文字</label><input class="ng-input" id="adm-staff-emoji" placeholder="🍸" value="🍸" /></div>
+            <div><label>出勤日</label><input class="ng-input" id="adm-staff-sched" placeholder="金–日" /></div>
           </div>
           <div style="margin-bottom:8px;">
-            <label style="display:block;font-size:10px;color:#505a70;margin-bottom:3px;">Description</label>
-            <input class="ng-input" id="adm-staff-desc" placeholder="Specialty: Japanese whisky cocktails" />
+            <label style="display:block;font-size:10px;color:#505a70;margin-bottom:3px;">紹介文</label>
+            <input class="ng-input" id="adm-staff-desc" placeholder="日本ウイスキーカクテルが得意" />
           </div>
           <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
-            <label style="font-size:11px;color:#8892a8;"><input type="checkbox" id="adm-staff-new" /> Mark as NEW</label>
+            <label style="font-size:11px;color:#8892a8;"><input type="checkbox" id="adm-staff-new" /> NEWバッジをつける</label>
           </div>
-          <button class="ng-btn" data-action="adm-add-staff" style="width:100%;">Add Staff</button>
+          <button class="ng-btn" data-action="adm-add-staff" style="width:100%;">スタッフを追加</button>
         </div>
 
         <!-- CURRENT DATA OVERVIEW -->
         <div class="ng-admin-section">
-          <div class="ng-admin-section-title">Current Spots (${spots.length})</div>
+          <div class="ng-admin-section-title">登録スポット一覧 (${spots.length})</div>
           ${spots.map(s => `
             <div class="ng-admin-mini-card">
               <div style="width:32px;height:32px;border-radius:6px;flex-shrink:0;overflow:hidden;background:#1a2038;display:flex;align-items:center;justify-content:center;font-size:16px;">
@@ -1842,7 +1957,7 @@
         </div>
 
         <div class="ng-admin-section">
-          <div class="ng-admin-section-title">Shop Staff</div>
+          <div class="ng-admin-section-title">ショップ スタッフ一覧</div>
           ${shops.map(shop => `
             <div style="font-size:11px;color:#b47aff;margin:8px 0 4px;font-weight:600;">${esc(shop.name)}</div>
             ${shop.staff.map((s, i) => `
@@ -1884,7 +1999,7 @@
         profile: 'YOU <span class="ng-cyan">//</span> PROFILE',
         reviews: 'ALL <span class="ng-cyan">//</span> REVIEWS',
         shopDetail: 'SHOP <span class="ng-cyan">//</span> OFFICIAL',
-        admin: 'TEST <span class="ng-cyan">//</span> ADMIN'
+        admin: 'テスト <span class="ng-cyan">//</span> 管理'
       };
       $('ng-screen-title').innerHTML = titles[state.screen] || titles.feed;
 
@@ -2009,7 +2124,7 @@
           break;
         case 'adm-add-spot': {
           const n = document.getElementById('adm-spot-name');
-          if (!n || !n.value.trim()) { toast('Enter a spot name'); break; }
+          if (!n || !n.value.trim()) { toast('店名を入力してください'); break; }
           const newSpot = {
             id: Date.now(),
             name: n.value.trim(),
@@ -2025,20 +2140,20 @@
             dist: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
           };
           spots.push(newSpot);
-          toast('Spot added: ' + newSpot.name);
+          toast('追加しました: ' + newSpot.name);
           render();
           break;
         }
         case 'adm-del-spot': {
           const idx = spots.findIndex(s => s.id === id);
-          if (idx >= 0) { spots.splice(idx, 1); toast('Spot removed'); render(); }
+          if (idx >= 0) { spots.splice(idx, 1); toast('スポットを削除しました'); render(); }
           break;
         }
         case 'adm-add-staff': {
           const shopId = parseInt(document.getElementById('adm-staff-shop').value);
           const shop = shops.find(s => s.id === shopId);
           const sn = document.getElementById('adm-staff-name');
-          if (!shop || !sn || !sn.value.trim()) { toast('Select shop and enter name'); break; }
+          if (!shop || !sn || !sn.value.trim()) { toast('ショップと名前を入力してください'); break; }
           shop.staff.push({
             name: sn.value.trim(),
             role: document.getElementById('adm-staff-role').value || 'Staff',
@@ -2047,7 +2162,7 @@
             isNew: document.getElementById('adm-staff-new').checked,
             schedule: document.getElementById('adm-staff-sched').value || 'TBD'
           });
-          toast('Staff added to ' + shop.name);
+          toast(shop.name + ' にスタッフを追加しました');
           render();
           break;
         }
@@ -2055,7 +2170,7 @@
           const shopId2 = parseInt(el.dataset.id);
           const sIdx = parseInt(el.dataset.idx);
           const shop2 = shops.find(s => s.id === shopId2);
-          if (shop2 && sIdx >= 0) { shop2.staff.splice(sIdx, 1); toast('Staff removed'); render(); }
+          if (shop2 && sIdx >= 0) { shop2.staff.splice(sIdx, 1); toast('スタッフを削除しました'); render(); }
           break;
         }
         case 'submit-comment':
